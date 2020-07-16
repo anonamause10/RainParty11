@@ -7,8 +7,11 @@ using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private Button button;
     [SerializeField] private Text buttonText;
+    [SerializeField] private InputField inputField;
     [SerializeField] private int roomSize;
+    
 
     private bool connected;
     private bool starting;
@@ -40,6 +43,22 @@ public class LobbyController : MonoBehaviourPunCallbacks
         }
         else
             Debug.Log("Not connected to server!");
+    }
+
+    public void SetPlayerName()
+    {
+        string name = inputField.text;
+        button.interactable = !string.IsNullOrEmpty(name);
+    }
+
+    public void SavePlayerName()
+    {
+        string playerName = inputField.text;
+
+        PhotonNetwork.NickName = playerName;
+
+        PlayerPrefs.SetString("PlayerName", playerName);
+
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
