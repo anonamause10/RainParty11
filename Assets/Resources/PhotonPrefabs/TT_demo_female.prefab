@@ -368,9 +368,10 @@ GameObject:
   - component: {fileID: 6252356961376966267}
   - component: {fileID: 6252356961367914557}
   - component: {fileID: -5425457027796548419}
-  - component: {fileID: -2736569257448715704}
+  - component: {fileID: 399060230837105454}
   - component: {fileID: -435863271303663713}
   - component: {fileID: -2263951676301276842}
+  - component: {fileID: 4204011863062785522}
   m_Layer: 0
   m_Name: TT_demo_female
   m_TagString: Untagged
@@ -386,7 +387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6252356961377389083}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000016292068}
-  m_LocalPosition: {x: 1.67, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6252356961376966623}
@@ -408,7 +409,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 203cf0d359892f04999d33aff079a599, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -432,7 +433,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!54 &-2736569257448715704
+--- !u!54 &399060230837105454
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -444,7 +445,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -485,6 +486,18 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
+--- !u!114 &4204011863062785522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252356961377389083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5990f9e5bd50b3545bfc614b9e2dabfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6252356961377389087
 GameObject:
   m_ObjectHideFlags: 0

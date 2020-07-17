@@ -211,9 +211,10 @@ GameObject:
   - component: {fileID: 7478225697115775088}
   - component: {fileID: 7478225697108807222}
   - component: {fileID: 7474278059676478739}
-  - component: {fileID: 1789367326953162882}
+  - component: {fileID: -880145378319911968}
   - component: {fileID: 2770579238166767767}
   - component: {fileID: 8199286392710132130}
+  - component: {fileID: 2114415203198432261}
   m_Layer: 0
   m_Name: TT_demo_male_A 2
   m_TagString: Untagged
@@ -250,7 +251,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 0e23d61041662004b9923dbda2d0226b, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -274,7 +275,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!54 &1789367326953162882
+--- !u!54 &-880145378319911968
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -286,7 +287,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -327,6 +328,18 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
+--- !u!114 &2114415203198432261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7478225697116208144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5990f9e5bd50b3545bfc614b9e2dabfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7478225697116208148
 GameObject:
   m_ObjectHideFlags: 0

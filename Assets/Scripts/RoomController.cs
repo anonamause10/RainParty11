@@ -26,7 +26,7 @@ public class RoomController : MonoBehaviourPunCallbacks
 
         foreach (Player player in PhotonNetwork.PlayerList)
         {
-            playerListString += player.NickName + "\n";
+            playerListString += player.NickName + "\n";//.Split('|')[0]
             
         }
 

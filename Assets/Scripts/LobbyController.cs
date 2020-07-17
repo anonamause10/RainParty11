@@ -10,11 +10,14 @@ public class LobbyController : MonoBehaviourPunCallbacks
     [SerializeField] private Button button;
     [SerializeField] private Text buttonText;
     [SerializeField] private InputField inputField;
+    [SerializeField] private InputField roomField;
     [SerializeField] private int roomSize;
+    [SerializeField] private CharSelect charSelect;
     
 
     private bool connected;
     private bool starting;
+    private string roomName;
 
     // Callback function for when first connection established
     public override void OnConnectedToMaster()
@@ -32,7 +35,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
             {
                 starting = true;
                 buttonText.text = "Starting Game. Click Again to Cancel";
-                PhotonNetwork.JoinRandomRoom(); // attempt joining a room
+                PhotonNetwork.JoinRoom(roomName); // attempt joining a room
             }
             else
             {
@@ -47,13 +50,13 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
     public void SetPlayerName()
     {
-        string name = inputField.text;
+        string name = inputField.text + "|" + charSelect.GetIndex();
         button.interactable = !string.IsNullOrEmpty(name);
     }
 
     public void SavePlayerName()
     {
-        string playerName = inputField.text;
+        string playerName = inputField.text + "|" + charSelect.GetIndex();
 
         PhotonNetwork.NickName = playerName;
 
@@ -61,7 +64,12 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
     }
 
-    public override void OnJoinRandomFailed(short returnCode, string message)
+    public void SetRoomNum()
+    {
+        roomName = roomField.text;
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
     {
         Debug.Log("Failed to join a room... creating room");
         CreateRoom();
@@ -72,8 +80,8 @@ public class LobbyController : MonoBehaviourPunCallbacks
         Debug.Log("Creating room now");
         int randomRoomNumber = Random.Range(0, 10000);
         RoomOptions roomOps = new RoomOptions() { IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
-        PhotonNetwork.CreateRoom("Room" + randomRoomNumber, roomOps); 
-        Debug.Log(randomRoomNumber); 
+        PhotonNetwork.CreateRoom(roomName, roomOps); 
+        Debug.Log(roomName); 
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message) 
