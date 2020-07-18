@@ -4,10 +4,20 @@ using UnityEngine;
 using Photon.Pun;
 using System.IO;
 
+
+//[ExecuteInEditMode]
 public class GameSetupController : MonoBehaviourPun
 {
     Dictionary<int, string> characterDict;
+    [SerializeField] private Texture2D map;
+    private GameObject[,] tiles;
+    public float mult;
     // Start is called before the first frame update
+
+    private void Awake() {
+        PlaceTiles();
+    }
+
     void Start()
     {
         characterDict = new Dictionary<int, string>();
@@ -21,12 +31,47 @@ public class GameSetupController : MonoBehaviourPun
         characterDict.Add(7,"TT_demo_police");
         characterDict.Add(8,"TT_demo_zombie 2");
         characterDict.Add(9,"TT_demo_zombie");
+        PlaceTiles();
         CreatePlayer();
+    }
+
+    private void PlaceTiles(){
+        if(GameObject.Find("GameTile(Clone)")){
+            return;
+        }
+        tiles = new GameObject[map.width,map.height];
+        Material material = null;
+        for (int i = 0; i < map.width; i++)
+        {
+            for (int j = 0; j < map.height; j++)
+            {
+                GameObject newTile = null;
+                if(map.GetPixel(i,j)==Color.white){
+                    continue;
+                }
+                if(PhotonNetwork.IsConnected){
+                    newTile = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "GameTile"), new Vector3(i*2.2f,0,j*2.2f) + (2.2f*15/2)*Vector3.left, Quaternion.identity);
+                }else{
+                    newTile = Instantiate((GameObject)Resources.Load("PhotonPrefabs/GameTile"), transform);
+                }
+                newTile.transform.position = new Vector3(i*2.2f,0,j*2.2f) + (2.2f*15/2)*Vector3.left;
+                material = newTile.GetComponent<Renderer>().material;
+                material.color = map.GetPixel(i,j);
+                material.SetColor("_EmissionColor", map.GetPixel(i,j)*mult);
+                tiles[i,j] = newTile;
+            }
+        }
     }
 
     private void CreatePlayer()
     {
         Debug.Log("Creating Player");
+        if(!PhotonNetwork.IsConnected){
+            Instantiate((GameObject)Resources.Load("PhotonPrefabs/TT_demo_female"), Vector3.zero, Quaternion.Euler(0,180,0));
+        }
+        if(PhotonNetwork.NickName==""){
+            return;
+        }
         string num = PhotonNetwork.NickName.Split('|')[1];
         if(num == ""){
             num = "0";

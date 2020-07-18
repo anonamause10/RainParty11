@@ -37,10 +37,10 @@ public class CardDisplay : MonoBehaviour
         sideBar.sprite = card.sideBar;
         image.sprite = card.image;
         PV = GetComponent<PhotonView>();
-        /*
-        if(!PV.IsMine){
+        
+        if(!PV.IsMine&&PhotonNetwork.IsConnected){
             this.enabled = false;
-        }*/
+        }
         targetPos = transform.position;
         cam = Camera.main;
     }

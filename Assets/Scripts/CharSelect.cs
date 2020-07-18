@@ -38,6 +38,7 @@ public class CharSelect : MonoBehaviour
         index = mod((index+1),characterDict.Count);
         Destroy(character);
         character = Instantiate((GameObject)(Resources.Load("PhotonPrefabs/"+characterDict[index])),transform);
+        character.transform.rotation = Quaternion.Euler(0,180,0);
         Destroy(character.GetComponent<CharacterMovement>());
     }
 
@@ -45,6 +46,7 @@ public class CharSelect : MonoBehaviour
         index = mod((index-1),characterDict.Count);
         Destroy(character);
         character = Instantiate((GameObject)(Resources.Load("PhotonPrefabs/"+characterDict[index])),transform);
+        character.transform.rotation = Quaternion.Euler(0,180,0);
         Destroy(character.GetComponent<CharacterMovement>());
     }
 
