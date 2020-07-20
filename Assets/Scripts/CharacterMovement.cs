@@ -10,6 +10,7 @@ public class CharacterMovement : MonoBehaviour
     private Animator animator;
     private float hopTimer;
     private Vector3 moveVec;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,9 @@ public class CharacterMovement : MonoBehaviour
         }
         
         Movement();
+        if(Input.GetKeyDown(KeyCode.T)){
+
+        }
 
         //if (Input.GetKeyDown(KeyCode.Escape))
         //    Application.Quit();

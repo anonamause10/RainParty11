@@ -9,6 +9,7 @@ public class TileScript : MonoBehaviour
     private Material mat;
     private RaycastHit hit;
     private bool glowing;
+    
     // Start is called before the first frame update
     void Start()
     {
