@@ -42,7 +42,7 @@ public class HandScript : MonoBehaviour
             newCard.transform.forward = transform.InverseTransformDirection(Vector3.up);
             newCard.GetComponent<CardDisplay>().setHome(Vector3.down*0.6f, Quaternion.identity);
             hand.Add(newCard);
-            clumpHand();
+            siftHand();
         }
 
 
@@ -54,13 +54,13 @@ public class HandScript : MonoBehaviour
             if(hand[i]==null){
                 hand.RemoveAt(i);
                 i--;
-                clumpHand();
+                siftHand();
                 continue;
             }
         }
     }
 
-    void clumpHand(){
+    void siftHand(){
         for (int i = 0; i < hand.Count; i++)
         {
             if(hand[i]==null){
