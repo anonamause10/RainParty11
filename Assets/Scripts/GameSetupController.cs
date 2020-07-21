@@ -78,7 +78,6 @@ public class GameSetupController : MonoBehaviourPun
         }
         int randnum = int.Parse(num);
         PhotonNetwork.NickName = PhotonNetwork.NickName.Split('|')[0];
-        print(randnum);
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", characterDict[randnum]), Vector3.zero, Quaternion.Euler(0,180,0));
     }
 }

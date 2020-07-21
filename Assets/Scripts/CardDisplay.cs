@@ -45,7 +45,6 @@ public class CardDisplay : MonoBehaviour
         sideBar.sprite = card.sideBar;
         image.sprite = card.image;
         GetComponent<Renderer>().material.SetColor("EdgeColor", ((Texture2D)sideBar.mainTexture).GetPixel(88,398)*10);
-        print(((Texture2D)sideBar.mainTexture).GetPixel(88,398));
         PV = GetComponent<PhotonView>();
         cardCanvas = transform.Find("Canvas");
         targetPos = transform.localPosition;
