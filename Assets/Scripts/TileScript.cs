@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class TileScript : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class TileScript : MonoBehaviour
         mat = GetComponent<Renderer>().material;
         origColor = mat.color;
         targetColor = mat.GetColor("_EmissionColor");
+        GetComponent<PhotonView>().ObservedComponents[0] = GetComponent<PhotonTransformView>();
     }
 
     // Update is called once per frame

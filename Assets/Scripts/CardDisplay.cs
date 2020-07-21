@@ -7,7 +7,7 @@ using Photon.Pun;
 
 public class CardDisplay : MonoBehaviour
 {
-
+    
     public Card card;
     public Card replaceCard;
 
@@ -21,7 +21,6 @@ public class CardDisplay : MonoBehaviour
     private PhotonView PV;
 
     public Vector3 targetPos;
-    private Vector3 posDamp = Vector3.zero;
     private Quaternion targetRotation;
 
     private Vector3 homePos;
@@ -35,6 +34,7 @@ public class CardDisplay : MonoBehaviour
     private Transform cardCanvas;
     public Color color;
     public Vector2 colorPos;
+    private bool inHand;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,9 +49,6 @@ public class CardDisplay : MonoBehaviour
         cardCanvas = transform.Find("Canvas");
         targetPos = transform.localPosition;
         cam = Camera.main;
-        if(!PV.IsMine&&PhotonNetwork.IsConnected){
-            this.enabled = false;
-        }
     }
 
     public void SetCard(Card newCard){
@@ -65,8 +62,8 @@ public class CardDisplay : MonoBehaviour
 
     void Update() {
         color = ((Texture2D)sideBar.mainTexture).GetPixel((int)colorPos.x,(int)colorPos.y);
-        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 10*Time.deltaTime);
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, 10*Time.deltaTime);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 7.5f*Time.deltaTime);
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, 7.5f*Time.deltaTime);
         if(transitioning){
             if((transform.localPosition - targetPos).magnitude<0.004f&&Quaternion.Angle(transform.localRotation, targetRotation)<0.5f){
                 transitioning = false;
@@ -77,10 +74,10 @@ public class CardDisplay : MonoBehaviour
             cardCanvas.localScale = new Vector3(0.01f, 0.00735f, 10) * Mathf.Pow(0.833f*(1-dissolveVal),5);
             return;
         }
-        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide)){
+        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide)&&inHand){
             if(hit.collider.gameObject == gameObject){
-                targetPos = homePos + Vector3.up*0.3f + Vector3.back*0.3f;
-                targetRotation = Quaternion.Euler(0,-20,0);
+                targetPos = homePos + Vector3.up*0.3f + Vector3.back*0.6f;
+                targetRotation = Quaternion.Euler(0,1.1f*Vector3.SignedAngle(cam.transform.forward,transform.position-cam.transform.position,transform.up),0);
                 if(Input.GetMouseButtonDown(0)){
                     transitioning = true;
                     targetPos = Vector3.zero;
@@ -96,6 +93,13 @@ public class CardDisplay : MonoBehaviour
             targetRotation = homeRot;
         }
         
+    }
+
+    public void setHand(){
+        inHand = true;
+        if(!PV.IsMine&&PhotonNetwork.IsConnected){
+            this.enabled = false;
+        }
     }
 
     public void setHome(Vector3 pos, Quaternion rot){

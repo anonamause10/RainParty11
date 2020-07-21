@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dc8709492dc87d43a0b1e98e6ef29d9, type: 3}
-  m_Name: bunkCard
+  m_Name: HappyEthan
   m_EditorClassIdentifier: 
-  title: bats
-  description: devils
-  image: {fileID: 21300000, guid: 419bd3d03f72c154bb2157f2d2771605, type: 3}
-  sideBar: {fileID: 21300000, guid: 8ee328b6dd7ebac48add271989f4e894, type: 3}
+  title: He knows something you don't
+  description: Look at one card from an opponent's hand and play it as if it was
+    yours
+  image: {fileID: 21300000, guid: 6f82fb30df79b684d9622a894e4b82fb, type: 3}
+  sideBar: {fileID: 21300000, guid: d7c5a1257cd4892459ce19aea8e6ce2a, type: 3}
   cost: 5

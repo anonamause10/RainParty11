@@ -10,6 +10,8 @@ public class HandScript : MonoBehaviour
     private Transform cameraT;
     private PhotonView PV;
     private List<GameObject> hand;
+    private float offestFactor = 0.25f;
+    private float angleFactor = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,21 +33,30 @@ public class HandScript : MonoBehaviour
         checkHand();
 
         if(Input.GetKeyDown(KeyCode.N)){
+            /*
             GameObject newCard;
             if(!PhotonNetwork.IsConnected){
-                newCard = Instantiate((GameObject)Resources.Load("PhotonPrefabs/Card"), Vector3.zero, Quaternion.Euler(90,0,0));
+                newCard = Instantiate((GameObject)Resources.Load("PhotonPrefabs/Card"), new Vector3(15,0,7), Quaternion.Euler(-90,0,0));
             }else{
-                newCard = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Card"), Vector3.zero, Quaternion.Euler(90,0,0));
+                newCard = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Card"), new Vector3(15,0,7), Quaternion.Euler(-90,0,0));
             }
-            newCard.transform.SetParent(transform, false);
-            newCard.transform.localPosition = transform.InverseTransformPoint(new Vector3(15,0,7));
-            newCard.transform.forward = transform.InverseTransformDirection(Vector3.up);
-            newCard.GetComponent<CardDisplay>().setHome(Vector3.down*0.6f, Quaternion.identity);
-            hand.Add(newCard);
-            siftHand();
+            addCard(newCard);*/
+            requestFromDeck();
         }
 
 
+    }
+
+    public void requestFromDeck(int index = 0){
+        GameObject.Find("Deck").GetComponent<DeckScript>().popToHand(gameObject, index);
+    }
+
+    public void addCard(GameObject newCard){
+        newCard.transform.SetParent(transform, true);
+        newCard.GetComponent<CardDisplay>().setHome(Vector3.down*0.6f, Quaternion.identity);
+        newCard.GetComponent<CardDisplay>().setHand();
+        hand.Add(newCard);
+        siftHand();
     }
 
     void checkHand(){
@@ -68,9 +79,9 @@ public class HandScript : MonoBehaviour
                 i--;
                 continue;
             }
-            float offsetVal = (i-(hand.Count/2f))/2f+0.5f;
-            Vector3 home = (Vector3.down*0.6f)+(Vector3.left*offsetVal)+(Vector3.forward*i*0.03f);
-            hand[i].GetComponent<CardDisplay>().setHome(home, Quaternion.identity);
+            float offsetVal = (i-(hand.Count/2f))/2f+offestFactor;
+            Vector3 home = (Vector3.down*(0.6f+0.1f*Mathf.Abs(offsetVal)))+(Vector3.left*(offsetVal))+(Vector3.forward*i*0.03f);
+            hand[i].GetComponent<CardDisplay>().setHome(home, Quaternion.Euler(0,0,offsetVal*10*angleFactor/hand.Count));
         }
     }
 }

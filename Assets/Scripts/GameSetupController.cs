@@ -54,7 +54,7 @@ public class GameSetupController : MonoBehaviourPun
                 }else{
                     newTile = Instantiate((GameObject)Resources.Load("PhotonPrefabs/GameTile"), transform);
                 }
-                newTile.transform.position = new Vector3(i*2.2f,0,j*2.2f) + (2.2f*15/2)*Vector3.left;
+                newTile.transform.position = new Vector3(i*2.2f,0,j*2.2f) + ((2.2f*15/2)-1)*Vector3.left;
                 material = newTile.GetComponent<Renderer>().material;
                 material.color = map.GetPixel(i,j);
                 material.SetColor("_EmissionColor", map.GetPixel(i,j)*mult);
