@@ -16,4 +16,4 @@ MonoBehaviour:
   description: kisses
   image: {fileID: 21300000, guid: 6f82fb30df79b684d9622a894e4b82fb, type: 3}
   sideBar: {fileID: 21300000, guid: 83c38542b5268254ba7f1d142f19aea0, type: 3}
-  cost: 120
+  cost: 10

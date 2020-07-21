@@ -13,7 +13,10 @@ public class CameraControl : MonoBehaviour
     private float rotX;
     private float rotY;
     private float turnSpeed = 4f;
-    private bool transitioning;
+    private float currSpeed;
+    private Vector3 prevVel;
+    public bool transitioning;
+    public bool locked = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +33,11 @@ public class CameraControl : MonoBehaviour
 			return;
 		}
 
-        if(Input.GetKeyDown(KeyCode.T)){
+        if(locked){
+            return;
+        }
+
+        if(Input.GetKeyDown(KeyCode.R)){
             transitioning = true;
         }
 
@@ -46,12 +53,21 @@ public class CameraControl : MonoBehaviour
         }
         boost += Input.mouseScrollDelta.y * 0.5f;
 
+
         Vector3 translation = GetInputTranslationDirection() * boost;
+        if(translation == Vector3.zero){
+            if(currSpeed>0.05f){
+                translation = prevVel;
+            }
+            currSpeed = Mathf.Lerp(currSpeed,0, 10*Time.deltaTime);
+        }else{
+            currSpeed = Mathf.Lerp(currSpeed,1, 10*Time.deltaTime);
+        }
         if (Input.GetKey(KeyCode.LeftShift))
         {
             translation *= 10.0f;
         }
-        transform.Translate(translation*Time.deltaTime);
+        transform.Translate(translation*Time.deltaTime*currSpeed);
 
         if(Input.GetMouseButton(1)){
             rotY = Input.GetAxis("Mouse X") * turnSpeed;
@@ -59,6 +75,7 @@ public class CameraControl : MonoBehaviour
             rotX = Mathf.Clamp(rotX, -90, 90);
             transform.eulerAngles = new Vector3(-rotX, transform.eulerAngles.y + rotY, 0);
         }
+        prevVel = translation;
     }
 
     public void transition(){

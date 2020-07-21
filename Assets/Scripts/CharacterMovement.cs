@@ -10,6 +10,8 @@ public class CharacterMovement : MonoBehaviour
     private Animator animator;
     private float hopTimer;
     private Vector3 moveVec;
+    private bool inputLock;
+    public CameraControl camControl;
     
 
     // Start is called before the first frame update
@@ -18,6 +20,7 @@ public class CharacterMovement : MonoBehaviour
         PV = GetComponent<PhotonView>();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        camControl = Camera.main.GetComponent<CameraControl>();
     }
 
     // Update is called once per frame
@@ -27,10 +30,20 @@ public class CharacterMovement : MonoBehaviour
             return;
         }
         
-        Movement();
         if(Input.GetKeyDown(KeyCode.T)){
-
+            inputLock = !inputLock;
+            camControl.locked = !camControl.locked;
+            if(!inputLock){
+                camControl.transitioning = true;
+            }
         }
+
+
+        if(inputLock){
+            return;
+        }
+
+        Movement();
 
         //if (Input.GetKeyDown(KeyCode.Escape))
         //    Application.Quit();
@@ -39,7 +52,6 @@ public class CharacterMovement : MonoBehaviour
 
     void Movement()
     {
-        print(hopTimer);
         if(hopTimer>-2f){
             hopTimer -= 10*Time.deltaTime;
         }

@@ -931,7 +931,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 4bc55f093af6dfe4d86a31f9f900fc21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -971,6 +971,10 @@ MonoBehaviour:
   cost: {fileID: 4381979190675395557}
   sideBar: {fileID: 4381979189268230837}
   image: {fileID: 4381979190459377818}
+  targetPos: {x: 0, y: 0, z: 0}
+  transitioning: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
+  colorPos: {x: 0, y: 0}
 --- !u!114 &2047929418485702715
 MonoBehaviour:
   m_ObjectHideFlags: 0
