@@ -971,6 +971,7 @@ MonoBehaviour:
   cost: {fileID: 4381979190675395557}
   sideBar: {fileID: 4381979189268230837}
   image: {fileID: 4381979190459377818}
+  PV: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
   transitioning: 0
   color: {r: 0, g: 0, b: 0, a: 0}

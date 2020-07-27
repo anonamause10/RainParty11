@@ -24,7 +24,7 @@ public class DeckScript : MonoBehaviour
 
         checkDeck();
 
-        if(Input.GetKeyDown(KeyCode.M)){
+        if(Input.GetKeyDown(KeyCode.M)&&(PhotonNetwork.IsConnected?PhotonNetwork.IsMasterClient:true)){
             newCard();
         }
 
