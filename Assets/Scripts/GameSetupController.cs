@@ -68,6 +68,8 @@ public class GameSetupController : MonoBehaviourPun
         Debug.Log("Creating Player");
         if(!PhotonNetwork.IsConnected){
             Instantiate((GameObject)Resources.Load("PhotonPrefabs/TT_demo_female"), Vector3.zero, Quaternion.Euler(0,180,0));
+            Instantiate((GameObject)Resources.Load("PhotonPrefabs/Hand"), Vector3.zero, Quaternion.Euler(0,180,0));
+            Instantiate((GameObject)Resources.Load("PhotonPrefabs/Deck"), new Vector3(20,0,15), Quaternion.Euler(0,0,0));
         }
         if(PhotonNetwork.NickName==""){
             return;
@@ -79,5 +81,10 @@ public class GameSetupController : MonoBehaviourPun
         int randnum = int.Parse(num);
         PhotonNetwork.NickName = PhotonNetwork.NickName.Split('|')[0];
         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", characterDict[randnum]), Vector3.zero, Quaternion.Euler(0,180,0));
+        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Hand"), Vector3.zero, Quaternion.Euler(0,180,0));
+        if(PhotonNetwork.IsMasterClient){
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Deck"), new Vector3(20,0,15), Quaternion.Euler(0,0,0));
+        }
+        
     }
 }

@@ -18,7 +18,7 @@ public class CardDisplay : MonoBehaviour
     public Image sideBar;
     public Image image;
 
-    private PhotonView PV;
+    public PhotonView PV;
 
     public Vector3 targetPos;
     private Quaternion targetRotation;
@@ -62,6 +62,9 @@ public class CardDisplay : MonoBehaviour
     }
 
     void Update() {
+        if(PhotonNetwork.IsConnected&&!PV.IsMine){
+            return;
+        }
         color = ((Texture2D)sideBar.mainTexture).GetPixel((int)colorPos.x,(int)colorPos.y);
         transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, 7.5f*Time.deltaTime);
         transform.localRotation = Quaternion.Slerp(transform.localRotation, targetRotation, 7.5f*Time.deltaTime);

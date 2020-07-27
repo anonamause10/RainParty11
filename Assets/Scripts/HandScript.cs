@@ -32,7 +32,7 @@ public class HandScript : MonoBehaviour
 
         checkHand();
 
-        if(Input.GetKey(KeyCode.N)){
+        if(Input.GetKeyDown(KeyCode.N)){
             /*
             GameObject newCard;
             if(!PhotonNetwork.IsConnected){
@@ -48,7 +48,7 @@ public class HandScript : MonoBehaviour
     }
 
     public void requestFromDeck(int index = 0){
-        GameObject.Find("Deck").GetComponent<DeckScript>().popToHand(gameObject, index);
+        GameObject.Find("Deck(Clone)").GetComponent<DeckScript>().popToHand(gameObject, index);
     }
 
     public void addCard(GameObject newCard){

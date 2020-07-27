@@ -24,7 +24,7 @@ public class DeckScript : MonoBehaviour
 
         checkDeck();
 
-        if(Input.GetKey(KeyCode.M)){
+        if(Input.GetKeyDown(KeyCode.M)){
             newCard();
         }
 
@@ -48,8 +48,12 @@ public class DeckScript : MonoBehaviour
         if(index>=deck.Count||index<0){
             return;
         }
-        hand.GetComponent<HandScript>().addCard(deck[index]);
+        GameObject card = deck[index];
+        hand.GetComponent<HandScript>().addCard(card);
         deck.RemoveAt(index);
+        if(PhotonNetwork.IsConnected){
+            card.GetComponent<CardDisplay>().PV.TransferOwnership(PhotonNetwork.LocalPlayer);
+        }
         checkDeck();
         siftDeck();
     }
