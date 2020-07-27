@@ -52,11 +52,11 @@ public class CharacterMovement : MonoBehaviour
 
     void Movement()
     {
-        if(hopTimer>-2f){
-            hopTimer -= 10*Time.deltaTime;
+        if(hopTimer>0){
+            hopTimer -= Time.deltaTime;
         }
         Vector3 prevMoveVec = moveVec;
-        moveVec = new Vector3(Input.GetAxis("Horizontal"),hopTimer,Input.GetAxis("Vertical"))*4;
+        moveVec = new Vector3(Input.GetAxis("Horizontal"),2f*(1.2f*hopTimer-2),Input.GetAxis("Vertical"))*4;
         if(Input.GetKeyDown(KeyCode.E)){
             hopTimer = 2f;
         }
@@ -65,6 +65,13 @@ public class CharacterMovement : MonoBehaviour
         animator.SetFloat("speed", xzMag(moveVec));
         Quaternion targetRot = Quaternion.Euler(0,(xzMag(moveVec)>0.05?Mathf.Atan2(moveVec.x,moveVec.z)*Mathf.Rad2Deg:180),0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot,5*Time.deltaTime);
+    }
+
+    void hop(Vector3 direction){
+        Quaternion targetRot = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot,5*Time.deltaTime);
+        Vector3 vel = new Vector3(direction.x,2*hopTimer-2,direction.z);
+
     }
 
     float evalYPos(float val){

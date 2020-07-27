@@ -32,7 +32,7 @@ public class HandScript : MonoBehaviour
 
         checkHand();
 
-        if(Input.GetKeyDown(KeyCode.N)){
+        if(Input.GetKey(KeyCode.N)){
             /*
             GameObject newCard;
             if(!PhotonNetwork.IsConnected){
@@ -80,7 +80,7 @@ public class HandScript : MonoBehaviour
                 continue;
             }
             float offsetVal = (i-(hand.Count/2f))/2f+offestFactor;
-            Vector3 home = (Vector3.down*(0.6f+0.1f*Mathf.Abs(offsetVal)))+(Vector3.left*(offsetVal))+(Vector3.forward*i*0.03f);
+            Vector3 home = (Vector3.down*(0.6f+0.02f*Mathf.Pow(Mathf.Abs(offsetVal),2)))+(Vector3.left*(offsetVal))+(Vector3.forward*i*0.03f);
             hand[i].GetComponent<CardDisplay>().setHome(home, Quaternion.Euler(0,0,offsetVal*10*angleFactor/hand.Count));
         }
     }

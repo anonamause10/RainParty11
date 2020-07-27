@@ -46,6 +46,7 @@ public class CardDisplay : MonoBehaviour
         image.sprite = card.image;
         GetComponent<Renderer>().material.SetColor("EdgeColor", ((Texture2D)sideBar.mainTexture).GetPixel(88,398)*10);
         PV = GetComponent<PhotonView>();
+        PV.ObservedComponents[0] = GetComponent<PhotonTransformView>();
         cardCanvas = transform.Find("Canvas");
         targetPos = transform.localPosition;
         cam = Camera.main;
@@ -76,7 +77,7 @@ public class CardDisplay : MonoBehaviour
         }
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide)&&inHand){
             if(hit.collider.gameObject == gameObject){
-                targetPos = homePos + Vector3.up*0.3f + Vector3.back*0.6f;
+                targetPos = homePos + Vector3.up*0.3f + Vector3.back*0.6f + Vector3.left*(transform.localPosition.x*0.6f);
                 targetRotation = Quaternion.Euler(0,1.1f*Vector3.SignedAngle(cam.transform.forward,transform.position-cam.transform.position,transform.up),0);
                 if(Input.GetMouseButtonDown(0)){
                     transitioning = true;
